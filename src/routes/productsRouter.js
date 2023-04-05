@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { getAllProducts, getProductById, insertNewProduct } = require('../models');
+const { nameProductValidation } = require('../middlewares');
 
 const productsRouter = Router();
 
@@ -17,7 +18,7 @@ productsRouter.get('/:id', async (req, res) => {
   return res.status(200).json(product);
 });
 
-productsRouter.post('/', async (req, res) => {
+productsRouter.post('/', nameProductValidation, async (req, res) => {
   const { name } = req.body;
 
   const newProduct = await insertNewProduct(name);
