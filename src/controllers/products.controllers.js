@@ -33,6 +33,8 @@ const updateProduct = async (req, res) => {
     return res.status(404).json({ message: updated.message });
   }
 
+  console.log('teste', updated);
+
   return res.status(200).json({
     id: +idParam,
     name: nameBody,
@@ -46,7 +48,7 @@ const deleteOneProduct = async (req, res) => {
     return res.status(404).json({ message: product.message });
   }
   await productModel.deleteProduct(id);
-  return res.status(204).end();
+  return res.status(204).json();
 };
 
 module.exports = {
