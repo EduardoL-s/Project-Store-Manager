@@ -1,5 +1,11 @@
 const { Router } = require('express');
-const { getAllProducts, getProductById, insertNewProduct, updateProduct } = require('../models');
+const {
+  getAllProducts,
+  getProductById,
+  insertNewProduct,
+  updateProduct,
+  deleteProduct,
+} = require('../models');
 const { nameProductValidation } = require('../middlewares');
 
 const productsRouter = Router();
@@ -41,6 +47,16 @@ productsRouter.put('/:id', nameProductValidation, async (req, res) => {
     id: +idParam,
     name: nameBody,
   });
+});
+
+productsRouter.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  const [product] = await getProductById(+id);
+  if (!product) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  await deleteProduct(id);
+  return res.status(204).end();
 });
 
 module.exports = productsRouter;
