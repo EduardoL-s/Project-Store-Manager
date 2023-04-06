@@ -1,4 +1,10 @@
-const { getAllProducts, getProductById, insertNewProduct } = require('./products.models');
+const {
+  getAllProducts,
+  getProductById,
+  insertNewProduct,
+  updateProduct,
+} = require('./products.models');
+
 const { getAllSales, getSaleById } = require('./sales.models');
 
 module.exports = {
@@ -7,4 +13,5 @@ module.exports = {
   insertNewProduct,
   getAllSales,
   getSaleById,
+  updateProduct,
 };

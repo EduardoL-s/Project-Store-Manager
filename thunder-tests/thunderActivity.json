@@ -73,5 +73,24 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "b075c22e-d45d-437b-872b-779548e9746e",
+    "colId": "history",
+    "containerId": "",
+    "name": "/PUT product",
+    "url": "localhost:3001/products/9",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-04-05T18:42:07.472Z",
+    "modified": "2023-04-06T00:09:55.703Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Martelo do batman\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
