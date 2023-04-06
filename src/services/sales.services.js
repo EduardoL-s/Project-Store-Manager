@@ -5,6 +5,7 @@ const isValidIdSale = async (id) => {
   if (saleId.length === 0) {
     return { type: 'ID_NOT_FOUND', message: 'Sale not found' };
   }
+  console.log(saleId);
 
   return { type: null, message: saleId };
 };
