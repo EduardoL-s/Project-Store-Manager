@@ -2,7 +2,6 @@ const { productModel } = require('../models');
 
 const isValidIdProduct = async (id) => {
   const [productId] = await productModel.getProductById(id);
-  console.log(productId);
 
   if (!productId) {
     return { type: 'ID_NOT_FOUND', message: 'Product not found' };
