@@ -83,12 +83,12 @@
     "method": "PUT",
     "sortNum": 0,
     "created": "2023-04-05T18:42:07.472Z",
-    "modified": "2023-04-06T15:59:29.490Z",
+    "modified": "2023-04-06T16:33:56.735Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"capa do batman\"\n}",
+      "raw": "{\n  \"name\": \"traje do batman\"\n}",
       "form": []
     },
     "tests": []

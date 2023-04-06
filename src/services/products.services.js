@@ -12,6 +12,7 @@ const isValidIdProduct = async (id) => {
 
 const productForUpdate = async (id, name) => {
   const updated = await productModel.updateProduct(id, name);
+  console.log('xablau', updated);
 
   if (updated.affectedRows !== 1) {
     return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };

@@ -35,13 +35,12 @@ describe('Testes referentes aos services da tabela products', function () {
     expect(error.message).to.be.equal('Product not found');
   });
 
-  // it('Verifica se ao tentar realizar o update um único valor da tabela a partir do id, retorna a venda correta', async function () {
-  //   sinon.stub(productModel, 'updateProduct').resolves([{ id: 1, name: 'traje de batman' }]);
-  //   const id = 1;
-  //   const name = 'traje do batman';
-  //   const error = await productService.productForUpdate(id, name);
-  //   expect(error.type).to.be.equal(null);
-  // });
+  it('Verifica se ao tentar realizar o update um único valor da tabela a partir do id, retorna a venda correta', async function () {
+    const id = 1;
+    const name = 'traje do batman';
+    const error = await productService.productForUpdate(id, name);
+    expect(error.type).to.be.equal(null);
+  });
 
   afterEach(function () {
     sinon.restore();
