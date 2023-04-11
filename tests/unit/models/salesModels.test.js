@@ -20,6 +20,13 @@ describe('Testes referentes aos models da tabela sales', function () {
     expect(result).to.be.equal(salesMock[2]);
   });
 
+  it('Realiza a operação de deletar uma venda da tabela a partir do id', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }, null]);
+    const id = 1;
+    const result = await salesModel.deleteSale(id);
+    expect(result.affectedRows).to.be.equal(1);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

@@ -26,11 +26,28 @@ const deleteSale = async (id) => {
   const [result] = await connection.execute(`
   DELETE FROM StoreManager.sales
   WHERE id = ?`, [id]);
+  console.log('aAAAAAAAAAAA', result);
   return result;
 };
+
+// const insertNewDate = async () => {
+//   const result = await connection.execute(`
+//   INSERT INTO StoreManager.sales (date) VALUES(NOW())`);
+//   return result;
+// };
+
+// const insertNewSale = async (productId, quantity) => {
+//   const result = await connection.execute(`
+//   INSERT INTO StoreManager.sales_products (product_id, quantity) VALUES (?, ?)
+//   `, [productId, quantity]);
+//   console.log('model', result);
+//   return result;
+// };
 
 module.exports = {
   getAllSales,
   getSaleById,
   deleteSale,
+  // insertNewDate,
+  // insertNewSale,
 };

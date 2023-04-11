@@ -1,5 +1,11 @@
 const { productModel } = require('../models');
 
+const findProducts = async () => {
+  const result = await productModel.getAllProducts();
+  console.log(result);
+  return result;
+};
+
 const isValidIdProduct = async (id) => {
   const [productId] = await productModel.getProductById(id);
 
@@ -10,18 +16,36 @@ const isValidIdProduct = async (id) => {
   return { type: null, message: productId };
 };
 
-const productForUpdate = async (id, name) => {
-  const updated = await productModel.updateProduct(id, name);
-  console.log('xablau', updated);
+const NewProduct = async (nameNewProduct) => {
+  const result = await productModel.insertNewProduct(nameNewProduct);
+  return { status: 201, newProduct: { id: result[0].insertId, name: nameNewProduct } };
+};
+
+const productForUpdate = async (idForUpdate, nameForUpdate) => {
+  const updated = await productModel.updateProduct(idForUpdate, nameForUpdate);
 
   if (updated.affectedRows !== 1) {
-    return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+    return { status: 404, message: { message: 'Product not found' } };
   }
 
-  return { type: null };
+  return { status: 200, message: { id: idForUpdate, name: nameForUpdate } };
+};
+
+const productForDelete = async (id) => {
+  const [validationId] = await productModel.getProductById(id);
+  console.log(validationId);
+
+  if (validationId === undefined) {
+    return { status: 404, message: { message: 'Product not found' } };
+  }
+  await productModel.deleteProduct(id);
+  return { status: 204, message: null };
 };
 
 module.exports = {
+  findProducts,
   isValidIdProduct,
+  NewProduct,
   productForUpdate,
+  productForDelete,
 };

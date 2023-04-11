@@ -69,7 +69,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2023-04-05T18:42:07.472Z",
-    "modified": "2023-04-06T14:24:45.542Z",
+    "modified": "2023-04-11T01:39:55.935Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -79,11 +79,11 @@
     "colId": "history",
     "containerId": "",
     "name": "/PUT product",
-    "url": "localhost:3001/products/1",
+    "url": "localhost:3001/products/2",
     "method": "PUT",
     "sortNum": 0,
     "created": "2023-04-05T18:42:07.472Z",
-    "modified": "2023-04-06T16:33:56.735Z",
+    "modified": "2023-04-11T21:06:44.601Z",
     "headers": [],
     "params": [],
     "body": {
@@ -98,11 +98,11 @@
     "colId": "history",
     "containerId": "",
     "name": "/DELETE product",
-    "url": "localhost:3001/products/4",
+    "url": "localhost:3001/products/1",
     "method": "DELETE",
     "sortNum": 0,
     "created": "2023-04-05T18:42:07.472Z",
-    "modified": "2023-04-06T12:58:52.113Z",
+    "modified": "2023-04-11T19:41:19.630Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -112,13 +112,32 @@
     "colId": "history",
     "containerId": "",
     "name": "/DELETE sale",
-    "url": "localhost:3001/products/4",
+    "url": "localhost:3001/sales/2",
     "method": "DELETE",
     "sortNum": 0,
     "created": "2023-04-05T18:42:07.472Z",
-    "modified": "2023-04-06T12:58:52.113Z",
+    "modified": "2023-04-11T21:29:26.471Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "63a69d57-526d-44e8-9c3c-3034e9437a58",
+    "colId": "history",
+    "containerId": "",
+    "name": "/POST sale",
+    "url": "localhost:3001/sales",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-04-05T18:42:07.472Z",
+    "modified": "2023-04-11T02:07:21.015Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "[\n  {\n    \"productId\": 1,\n    \"quantity\": 1\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 5\n  }\n]",
+      "form": []
+    },
     "tests": []
   }
 ]

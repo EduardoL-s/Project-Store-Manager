@@ -10,11 +10,12 @@ const { expect } = chai;
 const { productService } = require('../../../src/services');
 
 const { productsControllers } = require('../../../src/controllers');
+const productMock = require('../mocks/products.mock');
 
 describe('Testes referentes aos controllers da tabela products', function () {
 
   it('Verifica o retorno da função findAllProducts do controller do products, caso a operação seja um sucesso', async function () {
-    sinon.stub(productService, 'isValidIdProduct').resolves();
+    sinon.stub(productService, 'findProducts').resolves(productMock);
     const res = {}
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns();
@@ -61,7 +62,8 @@ describe('Testes referentes aos controllers da tabela products', function () {
   });
 
   it('Verifica o retorno da função insertProduct do controller do products', async function () {
-    sinon.stub(productService, 'isValidIdProduct').resolves();
+    const resultExpect = { status: 201, newProduct: { id: 4, name: 'Jóia do tempo' } };
+    sinon.stub(productService, 'NewProduct').resolves(resultExpect);
     const req = { body: { name: 'Jóia do tempo' } }
     const res = {};
     res.status = sinon.stub().returns(res);
@@ -73,7 +75,7 @@ describe('Testes referentes aos controllers da tabela products', function () {
   });
   
   it('Verifica o retorno da função updateProduct do controller do product, caso a operação falhe', async function () {
-    const resultFailled = { type: 'ID_NOT_FOUND', message: 'Product not found' }
+    const resultFailled = { status: 404, message: { message: 'Product not found' } }
     sinon.stub(productService, 'productForUpdate').resolves(resultFailled);
 
     const req = { params: { id: 9 }, body: { name: 'traje do batman' } }
@@ -88,16 +90,11 @@ describe('Testes referentes aos controllers da tabela products', function () {
   });
 
   it('Verifica o retorno da função updateProduct do controller do products, caso a operação seja um sucesso', async function () {
-    const resultSucess = {
-      type: null, message: {
-        id: 2,
-        name: 'traje do batman'
-      }
-    }
+    const resultSucess = { status: 200, message: { id: 2, name: 'traje do batman' } }
 
     sinon.stub(productService, 'productForUpdate').resolves(resultSucess);
 
-    const req = { params: { id: 9 }, body: { name: 'traje do batman' } }
+    const req = { params: { id: 2 }, body: { name: 'traje do batman' } }
 
     const res = {}
     res.status = sinon.stub().returns(res);
@@ -109,8 +106,8 @@ describe('Testes referentes aos controllers da tabela products', function () {
   });
 
   it('Verifica o retorno da função deleteOneProduct do controller do product, caso a operação falhe', async function () {
-    const resultFailled = { type: 'ID_NOT_FOUND', message: 'Product not found' }
-    sinon.stub(productService, 'isValidIdProduct').resolves(resultFailled);
+    const resultFailled = { status: 404, message: { message: 'Product not found' } }
+    sinon.stub(productService, 'productForDelete').resolves(resultFailled);
 
     const req = { params: { id: 9 } }
 
@@ -124,14 +121,9 @@ describe('Testes referentes aos controllers da tabela products', function () {
   });
 
   it('Verifica o retorno da função deleteOneProduct do controller do products, caso a operação seja um sucesso', async function () {
-    const resultSucess = {
-      type: null, message: {
-        id: 2,
-        name: 'Traje de encolhimento'
-      }
-    }
+    const resultSucess = { status: 204, message: null }
 
-    sinon.stub(productService, 'isValidIdProduct').resolves(resultSucess);
+    sinon.stub(productService, 'productForDelete').resolves(resultSucess);
 
     const req = { params: { id: 2 } }
 

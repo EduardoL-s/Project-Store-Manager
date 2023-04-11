@@ -1,8 +1,7 @@
-const { productModel } = require('../models');
 const { productService } = require('../services');
 
 const findAllProducts = async (req, res) => {
-  const products = await productModel.getAllProducts();
+  const products = await productService.findProducts();
   return res.status(200).json(products);
 };
 
@@ -17,38 +16,23 @@ const findProductsById = async (req, res) => {
 
 const insertProduct = async (req, res) => {
   const { name } = req.body;
-
-  const newProduct = await productModel.insertNewProduct(name);
-  return res.status(201).json({
-    id: newProduct[0].insertId,
-    name: req.body.name,
-  });
+  const newProduct = await productService.NewProduct(name);
+  return res.status(newProduct.status).json(newProduct.newProduct);
 };
 
 const updateProduct = async (req, res) => {
   const { id: idParam } = req.params;
   const { name: nameBody } = req.body;
   const updated = await productService.productForUpdate(idParam, nameBody);
-  if (updated.type) {
-    return res.status(404).json({ message: updated.message });
-  }
 
-  console.log('teste', updated);
-
-  return res.status(200).json({
-    id: +idParam,
-    name: nameBody,
-  });
+  return res.status(updated.status).json(updated.message);
 };
 
 const deleteOneProduct = async (req, res) => {
   const { id } = req.params;
-  const product = await productService.isValidIdProduct(+id);
-  if (product.type) {
-    return res.status(404).json({ message: product.message });
-  }
-  await productModel.deleteProduct(id);
-  return res.status(204).json();
+  const product = await productService.productForDelete(+id);
+  
+  return res.status(product.status).json(product.message);
 };
 
 module.exports = {
