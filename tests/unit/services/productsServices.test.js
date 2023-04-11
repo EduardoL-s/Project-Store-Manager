@@ -24,8 +24,7 @@ describe('Testes referentes aos services da tabela products', function () {
     expect(error.type).to.be.equal(null);
     expect(error.message).to.deep.equal({ id: 1, name: 'Martelo de Thor' });
   });
-
-
+  
   it('Verifica se ao tentar realizar o update um único valor da tabela a partir do id inexistente, retorna mensagem de erro', async function () {
     sinon.stub(productModel, 'updateProduct').resolves([]);
     const id = 9;
@@ -45,4 +44,5 @@ describe('Testes referentes aos services da tabela products', function () {
   afterEach(function () {
     sinon.restore();
   });
+
 });

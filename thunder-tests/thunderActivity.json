@@ -106,5 +106,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "5502dd23-400c-4640-b8dc-3ded020f03f6",
+    "colId": "history",
+    "containerId": "",
+    "name": "/DELETE sale",
+    "url": "localhost:3001/products/4",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2023-04-05T18:42:07.472Z",
+    "modified": "2023-04-06T12:58:52.113Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

@@ -47,4 +47,5 @@ describe('Testes referentes aos models da tabela products', function () {
   afterEach(function () {
     sinon.restore();
   });
+  
 });

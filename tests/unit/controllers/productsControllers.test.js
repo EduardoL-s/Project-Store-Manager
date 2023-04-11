@@ -108,13 +108,6 @@ describe('Testes referentes aos controllers da tabela products', function () {
     expect(res.status).to.have.been.calledWith(200);
   });
 
-
-
-
-
-
-
-
   it('Verifica o retorno da função deleteOneProduct do controller do product, caso a operação falhe', async function () {
     const resultFailled = { type: 'ID_NOT_FOUND', message: 'Product not found' }
     sinon.stub(productService, 'isValidIdProduct').resolves(resultFailled);
