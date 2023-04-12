@@ -27,6 +27,21 @@ describe('Testes referentes aos models da tabela sales', function () {
     expect(result.affectedRows).to.be.equal(1);
   });
 
+  it('Realiza a operação de inserir uma venda na tabela Sales', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }, null]);
+    const [result] = await salesModel.insertNewDate();
+    expect(result.affectedRows).to.be.equal(1);
+  });
+
+  it('Realiza a operação de inserir uma venda na tabela sales_product', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }, null]);
+    const saleId = 4
+    const productId = 1
+    const quantity = 15
+    const [result] = await salesModel.insertNewSale(saleId, productId, quantity);
+    expect(result.affectedRows).to.be.equal(1);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

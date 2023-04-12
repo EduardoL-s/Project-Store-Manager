@@ -26,7 +26,6 @@ const deleteSale = async (id) => {
   const [result] = await connection.execute(`
   DELETE FROM StoreManager.sales
   WHERE id = ?`, [id]);
-  console.log('aAAAAAAAAAAA', result);
   return result;
 };
 

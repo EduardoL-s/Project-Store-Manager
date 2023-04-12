@@ -2,7 +2,6 @@ const { productModel } = require('../models');
 
 const findProducts = async () => {
   const result = await productModel.getAllProducts();
-  console.log(result);
   return result;
 };
 
@@ -33,7 +32,6 @@ const productForUpdate = async (idForUpdate, nameForUpdate) => {
 
 const productForDelete = async (id) => {
   const [validationId] = await productModel.getProductById(id);
-  console.log(validationId);
 
   if (validationId === undefined) {
     return { status: 404, message: { message: 'Product not found' } };

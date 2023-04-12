@@ -5,7 +5,7 @@ const connection = require('../../../src/models/connection');
 
 const salesMock = require('../mocks/sales.mock');
 const { salesService } = require('../../../src/services');
-const { salesModel } = require('../../../src/models');
+const { salesModel, productModel } = require('../../../src/models');
 
 describe('Testes referentes aos services da tabela sales', function () {
 
@@ -44,6 +44,21 @@ describe('Testes referentes aos services da tabela sales', function () {
     const result = await salesService.findSaleForDelete(id);
     expect(result.status).to.be.equal(204);
   });
+
+  it('Verifica se ao tentar inserir uma nova venda, é retornado o status esperado', async function () {
+    sinon.stub(salesModel, 'insertNewDate').resolves([{ affectedRows: 1, insertId: 4 }, null]);
+    sinon.stub(salesModel, 'insertNewSale').resolves([{ affectedRows: 1 }, null]);
+    const body = [{ productId: 1, quantity: 1 }, { productId: 2, quantity: 5 }]; 
+    const result = await salesService.insertSales(body);
+    expect(result.status).to.be.equal(201);
+  })
+
+  it('Verifica se ao tentar inserir uma nova venda de um produto inexistente, é retornado o status esperado', async function () {
+    sinon.stub(productModel, 'getProductById').resolves([]);
+    const body = [{ productId: 99, quantity: 1 }];
+    const result = await salesService.insertSales(body);
+    expect(result.status).to.be.equal(404);
+  })
 
   afterEach(function () {
     sinon.restore();

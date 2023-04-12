@@ -91,6 +91,20 @@ describe('Testes referentes aos controllers da tabela sales', function () {
     await salesControllers.deleteSaleById(req, res);
     expect(res.status).to.have.been.calledWith(204);
   });
+
+  it('Verificao retorno da função insertSale do controllers do sales', async function () {
+    const result = { status: 201, message: [{ productId: 1, quantity: 1 }, { productId: 2, quantity: 5 }] }
+    sinon.stub(salesService, 'insertSales').resolves(result);
+
+    const req = { body: [{ productId: 1, quantity: 1 }, { productId: 2, quantity: 5 }] };
+
+    const res = {};
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesControllers.insertSale(req, res);
+    expect(res.status).to.be.have.been.calledWith(201);
+  });
   
   afterEach(function () {
     sinon.restore();
