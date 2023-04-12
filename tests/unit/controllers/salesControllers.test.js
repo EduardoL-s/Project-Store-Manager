@@ -92,7 +92,7 @@ describe('Testes referentes aos controllers da tabela sales', function () {
     expect(res.status).to.have.been.calledWith(204);
   });
 
-  it('Verificao retorno da função insertSale do controllers do sales', async function () {
+  it('Verifica o retorno da função insertSale do controllers do sales', async function () {
     const result = { status: 201, message: [{ productId: 1, quantity: 1 }, { productId: 2, quantity: 5 }] }
     sinon.stub(salesService, 'insertSales').resolves(result);
 
@@ -104,6 +104,20 @@ describe('Testes referentes aos controllers da tabela sales', function () {
 
     await salesControllers.insertSale(req, res);
     expect(res.status).to.be.have.been.calledWith(201);
+  });
+
+  it('Verifica o retorno da função updateSales do controllers do sales', async function () {
+    const resultService = { status: 200, message: { saleId: 1, itemsUpdated: [{ productId: 1, quantity: 100 }, { productId: 2, quantity: 50 }] } }
+    sinon.stub(salesService, 'saleForUpdate').resolves(resultService);
+
+    const req = { body: [{ productId: 1, quantity: 100 }, { productId: 2, quantity: 50 }], params: { id: 1 } }
+
+    const res = {};
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    await salesControllers.updateSales(req, res);
+    expect(res.status).to.be.have.been.calledWith(200)
   });
   
   afterEach(function () {

@@ -60,6 +60,30 @@ describe('Testes referentes aos services da tabela sales', function () {
     expect(result.status).to.be.equal(404);
   })
 
+  it('Verifica se ao tentar atualizar uma venda, é retornado o status esperado', async function () {
+    sinon.stub(salesModel, 'updateSale').resolves({ affectedRows: 1 });
+    const body = [{ productId: 1, quantity: 100 }, { productId: 2, quantity: 50 }]
+    const id = 1
+    const result = await salesService.saleForUpdate(id, body);
+    expect(result.status).to.be.equal(200);
+  });
+
+  it('Verifica se ao tentar atualizar uma venda com um productId inexistente, é retornado o status esperado', async function () {
+    sinon.stub(salesModel, 'updateSale').resolves({ affectedRows: 1 });
+    const body = [{ productId: 99, quantity: 100 }, { productId: 2, quantity: 50 }]
+    const id = 1
+    const result = await salesService.saleForUpdate(id, body);
+    expect(result.status).to.be.equal(404);
+  });
+
+  it('Verifica se ao tentar atualizar uma venda com um saleId inexistente, é retornado o status esperado', async function () {
+    sinon.stub(salesModel, 'updateSale').resolves({ affectedRows: 1 });
+    const body = [{ productId: 1, quantity: 100 }, { productId: 2, quantity: 50 }]
+    const id = 99
+    const result = await salesService.saleForUpdate(id, body);
+    expect(result.status).to.be.equal(404);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

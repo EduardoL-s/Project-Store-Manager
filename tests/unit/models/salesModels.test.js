@@ -42,6 +42,15 @@ describe('Testes referentes aos models da tabela sales', function () {
     expect(result.affectedRows).to.be.equal(1);
   });
 
+  it('Realiza a operação de atualizar vendas na tabela sales_product', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }, null]);
+    const saleId = 2;
+    const productId = 3;
+    const quantity = 20;
+    const result = await salesModel.updateSale(quantity, saleId, productId);
+    expect(result.affectedRows).to.be.equal(1);
+  });
+
   afterEach(function () {
     sinon.restore();
   });
