@@ -42,9 +42,32 @@ const insertSales = async (body) => {
   return { status: 201, message: { id: saleId, itemsSold: body } };
 };
 
+const saleForUpdate = async (idSale, body) => {
+  const validSaleId = await isValidIdSale(idSale);
+
+  if (validSaleId.type) {
+    return { status: 404, message: { message: 'Sale not found' } };
+  }
+
+  const validationProductId = await Promise.all(body
+    .map((register) => productModel.getProductById(register.productId)));
+
+  const noProductId = validationProductId.some((register) => !register.length);
+
+  if (noProductId) {
+    return { status: 404, message: { message: 'Product not found' } };
+  }
+
+  await Promise.all(body
+    .map((register) => salesModel.updateSale(register.quantity, idSale, register.productId)));
+  
+  return { status: 200, message: { saleId: idSale, itemsUpdated: body } };
+};
+
 module.exports = {
   findSales,
   isValidIdSale,
   findSaleForDelete,
   insertSales,
+  saleForUpdate,
 };
