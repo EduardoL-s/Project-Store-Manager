@@ -1,4 +1,4 @@
-const { salesModel } = require('../models');
+const { salesModel, productModel } = require('../models');
 
 const isValidIdSale = async (id) => {
   const saleId = await salesModel.getSaleById(id);
@@ -23,8 +23,28 @@ const findSaleForDelete = async (idForDelete) => {
   return { status: 204, message: null };
 };
 
+const insertSales = async (body) => {
+  const validationProductId = await Promise.all(body
+    .map((register) => productModel.getProductById(register.productId)));
+  
+  const noProductId = validationProductId.some((register) => !register.length);
+  
+  if (noProductId) {
+    return { status: 404, message: { message: 'Product not found' } };
+  }
+
+  const [saleDate] = await salesModel.insertNewDate();
+  const saleId = saleDate.insertId;
+
+  await Promise.all(body
+      .map((register) => salesModel.insertNewSale(saleId, register.productId, register.quantity)));
+
+  return { status: 201, message: { id: saleId, itemsSold: body } };
+};
+
 module.exports = {
   findSales,
   isValidIdSale,
   findSaleForDelete,
+  insertSales,
 };

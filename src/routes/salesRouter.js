@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { salesControllers } = require('../controllers');
+const { newSalesValidations } = require('../middlewares');
 
 const salesRouter = Router();
 
@@ -9,6 +10,6 @@ salesRouter.get('/:id', salesControllers.findSalesById);
 
 salesRouter.delete('/:id', salesControllers.deleteSaleById);
 
-// salesRouter.post('/', salesControllers.insertSale);
+salesRouter.post('/', newSalesValidations, salesControllers.insertSale);
 
 module.exports = salesRouter;

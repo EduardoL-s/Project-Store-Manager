@@ -30,24 +30,23 @@ const deleteSale = async (id) => {
   return result;
 };
 
-// const insertNewDate = async () => {
-//   const result = await connection.execute(`
-//   INSERT INTO StoreManager.sales (date) VALUES(NOW())`);
-//   return result;
-// };
+const insertNewDate = async () => {
+  const result = await connection.execute(`
+  INSERT INTO StoreManager.sales (date) VALUES(NOW())`);
+  return result;
+};
 
-// const insertNewSale = async (productId, quantity) => {
-//   const result = await connection.execute(`
-//   INSERT INTO StoreManager.sales_products (product_id, quantity) VALUES (?, ?)
-//   `, [productId, quantity]);
-//   console.log('model', result);
-//   return result;
-// };
+const insertNewSale = async (saleId, productId, quantity) => {
+  const result = await connection.execute(`
+  INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)
+  `, [saleId, productId, quantity]);
+  return result;
+};
 
 module.exports = {
   getAllSales,
   getSaleById,
   deleteSale,
-  // insertNewDate,
-  // insertNewSale,
+  insertNewDate,
+  insertNewSale,
 };

@@ -20,28 +20,15 @@ const deleteSaleById = async (req, res) => {
   return res.status(sale.status).json(sale.message);
 };
 
-// const insertSale = async (req, res) => {
-//   const { body } = req;
-
-//   const newSale = await salesModel.insertNewSale(body[0].productId, body[0].quantity);
-//   return res.status(201).json({
-//     id: newSale[0].insertId,
-//     itemsSold: [
-//       {
-//         productId: req.body[0].productId,
-//         quantity: req.body[0].quantity,
-//       },
-//       {
-//         productId: req.body[0].productId,
-//         quantity: req.body[0].quantity,
-//       },
-//     ],
-//   });
-// };
+const insertSale = async (req, res) => {
+  const { body } = req;
+  const sale = await salesService.insertSales(body);
+  return res.status(sale.status).json(sale.message);
+};
 
 module.exports = {
   findAllSales,
   findSalesById,
   deleteSaleById,
-  // insertSale,
+  insertSale,
 };
